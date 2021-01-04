@@ -17,6 +17,14 @@
  
 */
 
+func getStatusCode() -> (Int, String) {
+    return (400, "Not found")
+}
+
+let status = getStatusCode()
+print(status.0)
+print(status.1)
+
 
 
 /*
@@ -33,4 +41,6 @@
  
 */
 
+let flight: (airport: String, airplane: Int)
 
+flight = ("LAX", 747)
