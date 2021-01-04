@@ -16,6 +16,20 @@ Write a function named applyKTimes that takes an integer K and a closure and cal
 
 */
 
+func applyKTimes(K: Int, closure: () -> Void) {
+    for _ in 1...K {
+        closure()
+    }
+}
+
+/// Inline call
+applyKTimes(K: 3, closure: { print("I heart Swift") })
+
+/// Multiple line call
+applyKTimes(K: 2) { 
+    print("Hello there!")
+}
+
 
 /*
 
@@ -31,6 +45,11 @@ let numbers = [1, 2, 3, 4, 6, 8, 9, 3, 12, 11]
 
 */
 
+let numbers = [1, 2, 3, 4, 6, 8, 9, 3, 12, 11]
+
+let multiples = numbers.filter { $0 % 3 == 0 }  
+
+print(multiples)
 
 
 /*
@@ -40,6 +59,17 @@ Find the largest number from numbers and then print it. Use reduce to solve this
 
 */
 
+let otherNumbers = [4, 7, 1, 9, 6, 5, 6, 9]
+
+let max = otherNumbers.reduce(otherNumbers[0]) { x, y in
+    if x > y {
+        return x
+    } else {
+        return y
+    }
+}
+
+print(max)
 
 
 /*
@@ -53,6 +83,18 @@ Join all the strings from strings into one using reduce. Add spaces in between s
 
 */
 
+var strings = ["We", "Heart", "Swift"]
+
+let combineString = strings.reduce("") {
+    if $0 == "" {
+        return $1
+    } else {
+        return "\($0) \($1)"    
+    }
+}
+
+print(combineString)
+
 
 /*
 
@@ -61,10 +103,20 @@ Join all the strings from strings into one using reduce. Add spaces in between s
 Find the sum of the squares of all the odd numbers from numbers and then print it. Use map, filter and reduce to solve this problem.
 
 > var numbers = [1, 2, 3, 4, 5, 6]
-> 25 // 1 + 9 + 25 -> 25
+> 35 // 1 + 9 + 25 -> 35
 
 */
 
+var chainsNumbers = [1, 2, 3, 4, 5, 6]
+
+let oddNumbers = chainsNumbers.filter({ $0 % 2 == 1 })
+print(oddNumbers)
+
+let squaresNumbers = oddNumbers.map({ $0 * $0 })
+print(squaresNumbers)
+
+let sumNumbers = squaresNumbers.reduce(0, +)
+print(sumNumbers)
 
 
 /*
@@ -81,9 +133,24 @@ forEach(array) {
 // 2
 // 3
 // 4
+// 5
 
 */
 
+func forEach(_ array: [Int], _ closure: (Int) -> ()) {
+    
+    for number in array {
+        closure(number)
+    }
+    
+    // array.map { closure($0) }
+}
+
+var array = [1, 2, 3, 4]
+
+forEach(array) {
+    print($0 + 1)
+}
 
 
 /*
@@ -101,3 +168,24 @@ combineArrays(array1,array2) {
 > [5,10,15,12]
  
 */
+
+func combineArrays(_ a1: [Int], _ a2: [Int], closure: (Int, Int) -> Int) -> [Int] {
+    
+    var result: [Int] = []
+    
+    for i in 0..<a1.count {
+        result.append(closure(a1[i],a2[i]))
+    }
+    
+    return result
+}
+
+var array1 = [1,2,3,4]
+var array2 = [5,5,5,3]
+
+
+let resultArray = combineArrays(array1, array2) {
+    $0 * $1
+}
+
+print(resultArray)
