@@ -32,7 +32,20 @@ var location = (x: 0, y: 0)
 
 var steps: [Direction] = [.up, .up, .left, .down, .left]
 
-// your code here
+for step in steps {
+    switch step {
+    case .up:
+        location.y += 1
+    case .down:
+        location.y -= 1
+    case .right:
+        location.x += 1
+    case .left:
+        location.x -= 1
+    }
+}
+
+print(location)
 
 
 /*
@@ -42,4 +55,35 @@ var steps: [Direction] = [.up, .up, .left, .down, .left]
  2) Define an enumeration named MatchResult with three members: .win, .draw, .lose.
  3) Write a function called match that takes two hand shapes and returns a match result. It should return the outcome for the first player (the one with the first hand shape).
  */
+
+enum HandShape {
+    case rock
+    case paper
+    case scissors
+}
+
+enum MatchResult {
+    case win
+    case draw
+    case lose
+}
+
+func match(_ player1: HandShape, _ player2: HandShape) -> MatchResult {
+    
+    if (player1 == .rock && player2 == .scissors) || 
+        (player1 == .paper && player2 == .rock) || 
+        (player1 == .scissors && player2 == .paper) {
+        return .win
+    
+    } else if player1 == player2 {
+        return .draw
+    
+    } else {
+        return .lose
+    }
+}
+
+match(.paper, .rock)
+match(.paper, .scissors)
+match(.paper, .paper)
 
