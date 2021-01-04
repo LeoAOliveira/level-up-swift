@@ -15,7 +15,18 @@
    Create a struct called person, with a storied property of type Int called age, and then add a computed property called ageInDogYears of type Int that returns the age of the person in dog years (age * 7).
  */
 
+struct Person {
+    var age: Int
 
+    var ageInDogYears: Int {
+        get {
+            return age * 7
+        }
+    }
+}
+
+var leo = Person(age: 21)
+leo.ageInDogYears
 
 
 /*
@@ -29,6 +40,19 @@
 
  */
 
+struct Triangle {
+    let edgeA: Int
+    let edgeB: Int
+    let edgeC: Int
+    
+    var equilateral: Bool {
+        return edgeA == edgeB && edgeA == edgeC
+    }
+}
+
+var triangle = Triangle(edgeA: 5, edgeB: 5, edgeC: 5)
+triangle.equilateral
+
 
 /*
 🕹 Title in the Post
@@ -41,6 +65,19 @@
 
  */
 
+struct Post {
+    
+    var title: String {
+        didSet {
+            title.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+    }
+}
+
+var post = Post(title: "    spaces     ")   // must be var
+post.title                                  // didSet not called
+post.title = "   no spaces    "             // didSet called
+post.title
 
 
 /*
@@ -51,6 +88,22 @@
     If negative number, assign radius value of 0.
 
  */
+
+class Circle {
+    
+    var radius: Double = 0.0 {
+        didSet {
+            if radius < 0.0 {
+                radius = oldValue
+            }
+        }
+    }
+}
+
+let circle = Circle()
+circle.radius = 10
+circle.radius = -10
+
 
 
 
@@ -63,6 +116,19 @@
 
  */
 
+extension Circle {
+    
+    var area: Double {
+        get {
+            return radius * radius * Double.pi
+        }
+    }
+}
+
+let newCircle = Circle()
+newCircle.radius = 5
+newCircle.area
+
 
 
 /*
@@ -70,3 +136,19 @@
 
     Building on previous question, add a setter to the computed property area. When the area is set, have it set the stored property radius.
  */
+
+extension Circle {
+    
+    var alsoArea: Double {
+        get {
+            return radius * radius * Double.pi
+        }
+        set(newArea) {
+            radius = sqrt(newArea / Double.pi)
+        }
+    }
+}
+
+let anotherCircle = Circle()
+anotherCircle.alsoArea = 25
+anotherCircle.radius
