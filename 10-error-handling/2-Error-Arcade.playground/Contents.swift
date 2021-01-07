@@ -15,6 +15,10 @@ import Foundation
 
  */
 
+enum BillError: Error {
+    case negativeAmount
+}
+
 
 /*
 🕹 Bad Bill - throws.
@@ -25,7 +29,24 @@ import Foundation
 
  */
 
+func payBill(_ amount: Double) throws {
+    
+    if amount < 0.0 {
+        throw BillError.negativeAmount
+    }
+    
+    print("Bill payed: $\(amount)")
+}
 
+do {
+    try payBill(-10)
+} catch {
+    print("Error paying bill")
+}
+
+try? payBill(-20)
+
+// try! payBill(-30)
 
 
 /*
@@ -38,3 +59,11 @@ import Foundation
 
  */
 
+func alsoPayBill(_ amount: Double) {
+    
+    assert(amount > 0.0, "Amount can't be negative!")
+    
+    print("Bill payed: $\(amount)")
+}
+
+alsoPayBill(-10)
